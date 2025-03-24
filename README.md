@@ -39,7 +39,7 @@ This is a FastAPI-based REST API for handling file uploads and downloads with su
 
 #### Clone the repository:
 ```bash
-git clone https://github.com/your-repo/file-handling-api.git
+git clone https://github.com/mohd-adeeb011/HiPER-Automotive.git
 cd file-handling-api
 ```
 
@@ -57,7 +57,7 @@ pip install -r requirements.txt
 #### Set up environment variables:
 Create a `.env` file in the root directory with the following content:
 ```env
-SECRET_KEY=your-secret-key
+SECRET_KEY=secret-key
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 TEMP_UPLOAD_DIR=temp_uploads
@@ -163,9 +163,3 @@ Each file chunk includes a custom binary header with:
 ### Download a File
 - Send a `GET` request to `/files/{filename}`.
 - Use the `Range` header to download specific portions of the file.
-
-## Future Enhancements
-- **Cloud Integration:** Replace local storage with cloud storage solutions (e.g., AWS S3, Google Cloud Storage).
-- **Distributed Tracking:** Use Redis or another distributed database for tracking upload sessions.
-- **Rate Limiting:** Implement rate limiting to prevent abuse.
-- **File Encryption:** Add support for encrypting files at rest.
