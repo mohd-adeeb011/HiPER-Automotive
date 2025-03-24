@@ -17,7 +17,6 @@ def get_auth_token():
     """Get JWT token for authentication"""
     # Try both common authentication methods
     try:
-        # Method 1: Form-data (OAuth2 password flow)
         response = requests.post(
             AUTH_URL,
             data={"username": USERNAME, "password": PASSWORD}
@@ -27,7 +26,6 @@ def get_auth_token():
         if token:
             return token
             
-        # Method 2: Basic auth (if your API uses it)
         response = requests.post(
             AUTH_URL,
             auth=HTTPBasicAuth(USERNAME, PASSWORD)
@@ -164,10 +162,10 @@ def verify_files(original: str, downloaded: str):
     print(f"Downloaded file MD5: {dl_hash}")
     
     if orig_hash == dl_hash:
-        print("✅ Files match perfectly!")
+        print("Files match perfectly!")
         return True
     else:
-        print("❌ Files differ!")
+        print("Files differ!")
         return False
 
 def test_partial_download(filename: str, token: str):
@@ -212,7 +210,7 @@ def main():
         token = get_auth_token()
         print(f"Authentication successful (token: {token[:10]}...)")
     except Exception as e:
-        print(f"❌ Failed to authenticate: {str(e)}")
+        print(f" Failed to authenticate: {str(e)}")
         print("Please check:")
         print("- Your API is running")
         print("- The auth endpoint is correct")
@@ -222,36 +220,36 @@ def main():
     # Test upload
     print("\n=== Testing upload ===")
     if not upload_file(TEST_FILE, token):
-        print("❌ Upload test failed")
+        print("Upload test failed")
         return
     
     # Check status
     print("\n=== Checking status ===")
     status_info = check_status(os.path.basename(TEST_FILE), token)
     if not status_info:
-        print("❌ Status check failed")
+        print("Status check failed")
         return
     
     # Test download
     print("\n=== Testing download ===")
     downloaded_file = "downloaded_" + os.path.basename(TEST_FILE)
     if not download_file(os.path.basename(TEST_FILE), token, downloaded_file):
-        print("❌ Download test failed")
+        print("Download test failed")
         return
     
     # Verify integrity
     print("\n=== Verifying integrity ===")
     if not verify_files(TEST_FILE, downloaded_file):
-        print("❌ Integrity verification failed")
+        print("Integrity verification failed")
         return
     
     # Test partial download
     print("\n=== Testing partial download ===")
     if not test_partial_download(os.path.basename(TEST_FILE), token):
-        print("❌ Partial download test failed")
+        print("Partial download test failed")
         return
     
-    print("\n✅ All tests completed successfully!")
+    print("\nAll tests completed successfully!")
 
 if __name__ == "__main__":
     main()
